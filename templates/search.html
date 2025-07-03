@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Поиск{% endblock %}
+{% block content %}
+<form method="post" action="/search" class="mb-4">
+  <div class="mb-3">
+    <input type="text" name="keyword" class="form-control" placeholder="Ключевая фраза" required>
+  </div>
+  <div class="mb-3">
+    <select name="region" class="form-select" required>
+      {% for code, name in regions.items() %}
+      <option value="{{code}}">{{name}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Собрать</button>
+</form>
+{% if results %}
+<form method="post" action="/generate">
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Исключить</th>
+      <th>URL</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Keywords</th>
+      <th>H1</th>
+      <th>H2</th>
+      <th>H3</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in results %}
+    <tr>
+      <td><input type="checkbox" name="urls" value="{{r.url}}"></td>
+      <td>{{r.url}}</td>
+      <td>{{r.title}}</td>
+      <td>{{r.description}}</td>
+      <td>{{r.keywords}}</td>
+      <td>{{r.h1}}</td>
+      <td>{{r.h2}}</td>
+      <td>{{r.h3}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<button type="submit" class="btn btn-success">Сгенерировать метатеги</button>
+</form>
+{% endif %}
+{% endblock %}

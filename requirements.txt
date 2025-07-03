@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+sqlalchemy
+jinja2
+python-multipart
+passlib[bcrypt]
+pyjwt
+requests
+beautifulsoup4
+openai
